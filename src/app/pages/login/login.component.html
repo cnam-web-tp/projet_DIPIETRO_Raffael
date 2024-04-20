@@ -1,0 +1,16 @@
+<form [formGroup]="loginForm" class="flex w-full flex-col gap-3">
+  <tui-input formControlName="login" tuiTextfieldSize="s"
+    >Identifiant</tui-input
+  >
+  <tui-error
+    formControlName="login"
+    [error]="[] | tuiFieldError | async"></tui-error>
+
+  <tui-input-password formControlName="password" tuiTextfieldSize="s">
+    Mot de passe
+  </tui-input-password>
+  <tui-error
+    formControlName="password"
+    [error]="[] | tuiFieldError | async"></tui-error>
+</form>
+<button tuiButton (click)="login()">Connexion</button>

@@ -4,9 +4,13 @@
     [routerLink]="['/']">
     Vendeur de tram
   </p>
-  <p
-    class="cursor-pointer rounded-lg bg-blue-50 p-2 text-3xl text-blue-500"
-    [routerLink]="['/cart']">
-    Panier !! 🛒 ({{ cartTramsCount$ | async }})
-  </p>
+  <div class="flex items-center gap-4">
+    <p class="cursor-pointer" [routerLink]="['/register']">Créer un compte</p>
+    <p class="cursor-pointer" [routerLink]="['/login']">Se connecter</p>
+    <p
+      class="cursor-pointer rounded-lg bg-blue-50 p-2 text-3xl text-blue-500"
+      [routerLink]="['/cart']">
+      Panier !! 🛒 ({{ cartTramsCount$ | async }})
+    </p>
+  </div>
 </div>

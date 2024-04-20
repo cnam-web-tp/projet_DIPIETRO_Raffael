@@ -1,20 +1,12 @@
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import {
-  TuiRootModule,
-  TuiDialogModule,
-  TuiAlertModule,
-  TUI_SANITIZER
-} from '@taiga-ui/core';
+import { TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
 import { BehaviorSubject } from 'rxjs';
 import { CreateUser } from './models/create-user.type';
 import { CommonModule } from '@angular/common';
-import { NgxsModule } from '@ngxs/store';
-import { CartState } from './state/cart/cart.state';
 
 @Component({
   selector: 'app-root',

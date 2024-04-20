@@ -13,6 +13,7 @@ import { dictionary } from '@zxcvbn-ts/language-common';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { CartState } from './state/cart/cart.state';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       NgxsModule.forRoot([CartState], { developmentMode: true })
     ),
-    importProvidersFrom(NgxsReduxDevtoolsPluginModule.forRoot())
+    importProvidersFrom(NgxsReduxDevtoolsPluginModule.forRoot()),
+    provideHttpClient()
   ]
 };

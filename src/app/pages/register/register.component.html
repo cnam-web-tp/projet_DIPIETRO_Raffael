@@ -1,4 +1,8 @@
+<p>caca</p>
+@if ((isLoading$ | async) === false) {
 <div class="w-[60rem]">
-  <app-user-form (userCreated)="user$.next($event)" />
+  <app-user-form (userCreated)="registerUser($event)" />
 </div>
-<p *ngIf="(user$ | async) as user">{{ user | json }}</p>
+} @else {
+<p>Chargement...</p>
+}
