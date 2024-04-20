@@ -1,0 +1,5 @@
+<p>Bienvenu sur votre profile</p>
+<p>Si les informations s'affichent, c'est que vous êtes connecté :)</p>
+@if (user$ | async; as user) {
+<p>{{ user | json }}</p>
+}
