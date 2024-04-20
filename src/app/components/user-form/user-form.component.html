@@ -1,0 +1,131 @@
+<div class="flex flex-col items-center gap-3">
+  <tui-stepper [(activeItemIndex)]="formStep">
+    <button tuiStep [disabled]="formStep <= 0">
+      Informations personnelles
+    </button>
+    <button tuiStep [disabled]="formStep <= 1">Adresse</button>
+    <button tuiStep [disabled]="formStep <= 2">
+      Informations de connexion
+    </button>
+  </tui-stepper>
+
+  <!-- Informations perso -->
+  @if (formStep === UserFormStep.info) {
+  <form
+    [formGroup]="userForm[UserFormStep.info]"
+    class="flex w-full flex-col gap-3">
+    <tui-input formControlName="firstName" tuiTextfieldSize="s"
+      >Prénom</tui-input
+    >
+    <tui-error
+      formControlName="firstName"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input formControlName="lastName" tuiTextfieldSize="s">Nom</tui-input>
+    <tui-error
+      formControlName="lastName"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <!-- <tui-input formControlName="gender" tuiTextfieldSize="s">Genre</tui-input> -->
+    <tui-select formControlName="gender" tuiTextfieldSize="s">
+      Genre
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="genders"></tui-data-list-wrapper>
+    </tui-select>
+    <tui-error
+      formControlName="gender"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input formControlName="email" tuiTextfieldSize="s">Email</tui-input>
+    <tui-error
+      formControlName="email"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input-phone-international
+      formControlName="phone"
+      [countries]="(countries | tuiSortCountries | async) || []"
+      [(countryIsoCode)]="countryIsoCode">
+      Numéro de téléphone
+    </tui-input-phone-international>
+    <tui-error
+      formControlName="phone"
+      [error]="[] | tuiFieldError | async"></tui-error>
+  </form>
+  }
+  <!-- Adresse -->
+  @if (formStep === UserFormStep.address) {
+  <form
+    [formGroup]="userForm[UserFormStep.address]"
+    class="flex w-full flex-col gap-3">
+    <tui-input formControlName="country" tuiTextfieldSize="s">Pays</tui-input>
+    <tui-error
+      formControlName="country"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input formControlName="zipCode" tuiTextfieldSize="s">
+      Code postale
+    </tui-input>
+    <tui-error
+      formControlName="zipCode"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input formControlName="city" tuiTextfieldSize="s">Ville</tui-input>
+    <tui-error
+      formControlName="city"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input formControlName="address" tuiTextfieldSize="s">
+      Adresse
+    </tui-input>
+    <tui-error
+      formControlName="address"
+      [error]="[] | tuiFieldError | async"></tui-error>
+  </form>
+  }
+
+  <!-- Connexion -->
+  @if (formStep === UserFormStep.register) {
+  <form
+    [formGroup]="userForm[UserFormStep.register]"
+    class="flex w-full flex-col gap-3">
+    <tui-input formControlName="login" tuiTextfieldSize="s">
+      Identifiant
+    </tui-input>
+    <tui-error
+      formControlName="login"
+      [error]="[] | tuiFieldError | async"></tui-error>
+
+    <tui-input-password formControlName="password" tuiTextfieldSize="s">
+      Mot de passe
+    </tui-input-password>
+    <password-strength-meter
+      *ngIf="userForm[UserFormStep.register].get('password')?.value as password"
+      [password]="password"
+      enableFeedback
+      enableAsync
+      (strengthChange)="passwordStrength$.next($event || 0)" />
+    <tui-error
+      formControlName="password"
+      [error]="[] | tuiFieldError | async"></tui-error>
+    <tui-input-password formControlName="passwordConfirm" tuiTextfieldSize="s">
+      Confirmer le mot de passe
+    </tui-input-password>
+    <tui-error
+      [formGroup]="userForm[UserFormStep.register]"
+      [error]="[] | tuiFieldError | async"></tui-error>
+  </form>
+  }
+
+  <tui-error [error]="[] | tuiFieldError | async"></tui-error>
+  <div class="flex w-full justify-end gap-3">
+    <button appearance="flat" size="l" tuiButton>Annuler</button>
+    <button
+      size="l"
+      tuiButton
+      (click)="nextStep()"
+      [disabled]="userForm[formStep].invalid">
+      {{ formStep === UserFormStep.register ? 'S\'inscrire' : 'Suivant' }}
+    </button>
+  </div>
+</div>

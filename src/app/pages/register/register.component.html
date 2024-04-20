@@ -1,0 +1,4 @@
+<div class="w-[60rem]">
+  <app-user-form (userCreated)="user$.next($event)" />
+</div>
+<p *ngIf="(user$ | async) as user">{{ user | json }}</p>

@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-4">
+  <app-searchbar searchbarLabel="Recherchez un tram"></app-searchbar>
+  <div class="flex w-full flex-wrap gap-8">
+    @for (tram of (trams$ | async); track tram.name) {
+    <app-tram-card [tram]="tram"></app-tram-card>
+    }
+  </div>
+</div>
