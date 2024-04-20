@@ -3,8 +3,9 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { TuiButtonModule } from '@taiga-ui/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CartState } from '../../state/cart/cart.state';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,8 @@ import { CartState } from '../../state/cart/cart.state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-  private readonly store = inject(Store);
+  readonly authenticationService = inject(AuthenticationService);
+  isAuthenticated$ = this.authenticationService.jwt$.pipe(map((jwt) => !!jwt));
 
   @Select(CartState.getCartTramsCount)
   declare cartTramsCount$: Observable<number>;

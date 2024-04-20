@@ -7,6 +7,9 @@
   <div class="flex items-center gap-4">
     <p class="cursor-pointer" [routerLink]="['/register']">Créer un compte</p>
     <p class="cursor-pointer" [routerLink]="['/login']">Se connecter</p>
+    @if (isAuthenticated$ | async) {
+    <p class="cursor-pointer" [routerLink]="['/profile']">Profile</p>
+    }
     <p
       class="cursor-pointer rounded-lg bg-blue-50 p-2 text-3xl text-blue-500"
       [routerLink]="['/cart']">

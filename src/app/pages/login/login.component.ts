@@ -15,6 +15,8 @@ import {
 import { CustomValidators } from '../../components/user-form/customValidators';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +43,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   userService = inject(UserService);
+  authenticationService = inject(AuthenticationService);
+  router = inject(Router);
 
   loginForm = new FormGroup({
     login: new FormControl('', [CustomValidators.required]),
@@ -64,6 +68,8 @@ export class LoginComponent {
       .subscribe((res) => {
         console.log('User logged in', res);
         this.loginForm.reset();
+        this.authenticationService.authenticateUser(res.token, res.login);
+        this.router.navigate(['/']);
       });
   }
 }
