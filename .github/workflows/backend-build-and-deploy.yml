@@ -1,0 +1,67 @@
+name: Build and Deploy backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - backend
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Log in the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: backend/
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+
+  #   permissions:
+  #     contents: read
+  #     packages: write
+
+  #   needs: build
+
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.HOST_USERNAME }}
+  #         key: ${{ secrets.HOST_KEY }}
+  #         port: ${{ secrets.HOST_PORT }}
+  #         script: |
+  #           cd ~/DOCKER/TP-web/backend
+  #           docker compose -f docker-compose.yml pull backend
+  #           docker compose -f docker-compose.yml down backend
+  #           docker compose -f docker-compose.yml --env-file ./.env up -d backend
+  #           docker compose -f docker-compose.yml --env-file ./.env up -d backend
