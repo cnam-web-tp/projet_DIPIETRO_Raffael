@@ -42,25 +42,25 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-  #   permissions:
-  #     contents: read
-  #     packages: write
+    permissions:
+      contents: read
+      packages: write
 
-  #   needs: build
+    needs: build
 
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.HOST_USERNAME }}
-  #         key: ${{ secrets.HOST_KEY }}
-  #         port: ${{ secrets.HOST_PORT }}
-  #         script: |
-  #           cd ~/DOCKER/TP-web/frontend
-  #           docker compose -f docker-compose.yml pull frontend
-  #           docker compose -f docker-compose.yml down frontend
-  #           docker compose -f docker-compose.yml up -d frontend
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.HOST_USERNAME }}
+          key: ${{ secrets.HOST_KEY }}
+          port: ${{ secrets.HOST_PORT }}
+          script: |
+            cd ~/DOCKER/TP-web/frontend
+            docker compose -f docker-compose.yml pull tp-web-frontend
+            docker compose -f docker-compose.yml down tp-web-frontend
+            docker compose -f docker-compose.yml up -d tp-web-frontend
