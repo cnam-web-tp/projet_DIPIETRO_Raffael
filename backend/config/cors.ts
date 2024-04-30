@@ -9,7 +9,7 @@ import { defineConfig } from '@adonisjs/cors'
 const corsConfig = defineConfig({
   enabled: true,
   origin: [
-    'https://raffaeldp.fr',
+    'https://tp-web.raffaeldp.fr',
     'https://tp06-dipietro-raffael.vercel.app',
     'http://localhost:4200',
   ],
