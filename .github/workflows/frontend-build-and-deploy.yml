@@ -40,7 +40,7 @@ jobs:
           context: frontend/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.meta.outputs.labels }} frontend
 
   # deploy:
   #   runs-on: ubuntu-latest
