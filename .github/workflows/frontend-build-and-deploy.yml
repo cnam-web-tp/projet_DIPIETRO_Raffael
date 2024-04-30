@@ -33,14 +33,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: frontend/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }} frontend
+          labels: ${{ steps.meta.outputs.labels }}
 
   # deploy:
   #   runs-on: ubuntu-latest
