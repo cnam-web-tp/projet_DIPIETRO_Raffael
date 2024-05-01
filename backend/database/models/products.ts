@@ -17,6 +17,10 @@ Products.init(
       primaryKey: true,
       allowNull: false,
     },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
