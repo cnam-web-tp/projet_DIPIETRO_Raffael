@@ -1,4 +1,4 @@
-export type Tram = {
+export type Tramway = {
   productId: number;
   brand: string;
   name: string;

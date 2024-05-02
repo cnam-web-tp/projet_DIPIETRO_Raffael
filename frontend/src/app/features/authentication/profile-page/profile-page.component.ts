@@ -1,17 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { AuthenticationService } from '../authentication.service';
 import { Observable } from 'rxjs';
-import { User } from '../../models/user';
+import { User } from '../../../models/user';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './profile.component.html'
+  templateUrl: './profile-page.component.html'
 })
-export class ProfileComponent implements OnInit {
-  userService = inject(UserService);
+export class ProfilePageComponent implements OnInit {
+  userService = inject(AuthenticationService);
 
   declare user$: Observable<User>;
 

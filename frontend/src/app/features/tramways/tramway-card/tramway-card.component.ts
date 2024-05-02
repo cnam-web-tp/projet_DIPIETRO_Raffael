@@ -5,27 +5,24 @@ import {
   Input,
   inject
 } from '@angular/core';
-import { Tram } from '../../models/tram.type';
 import { Store } from '@ngxs/store';
-import { AddTramToCart } from '../../state/cart/cart.actions';
-import { environment } from '../../../environments/environment';
 import { TuiMoneyModule } from '@taiga-ui/addon-commerce';
+import { Tramway } from '../../../models/tramway.type';
+import { environment } from '../../../../environments/environment';
+import { AddTramToCart } from '../../../state/cart/cart.actions';
+import { tramwayImageUrl } from '../../../utils/tramway-image-url';
 
 @Component({
   selector: 'app-tram-card',
   standalone: true,
   imports: [CommonModule, TuiMoneyModule],
-  templateUrl: './tramCard.component.html',
+  templateUrl: './tramway-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TramCardComponent {
-  @Input() declare tram: Tram;
+export class TramwayCardComponent {
+  @Input() declare tram: Tramway;
 
   private readonly store = inject(Store);
 
-  imageBaseUrl = `${environment.API_URL}/images/trams`;
-
-  addToCart(): void {
-    this.store.dispatch(new AddTramToCart(this.tram));
-  }
+  tramwayImageUrl = tramwayImageUrl;
 }

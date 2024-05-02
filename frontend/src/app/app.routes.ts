@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './pages/register/register.component';
-import { ProductsComponent } from './pages/products/products.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { RegisterPageComponent } from './features/authentication/register-page/register-page.component';
+import { LoginPageComponent } from './features/authentication/login-page/login-page.component';
+import { ProfilePageComponent } from './features/authentication/profile-page/profile-page.component';
+import { TramwaysPageComponent } from './features/tramways/tramways-page/tramways-page.component';
+import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'cart', component: CartComponent }
+  { path: '', component: TramwaysPageComponent },
+  { path: 'register', component: RegisterPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'profile', component: ProfilePageComponent },
+  { path: 'tramways', component: TramwaysPageComponent },
+  { path: 'cart', component: CartPageComponent }
 ];

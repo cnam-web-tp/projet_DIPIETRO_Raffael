@@ -1,0 +1,33 @@
+<!-- Prettier not pretty configurated to this syntaxe maybe.. Sorry for lisibility -->
+@if(tramsInCart$ | async; as tramsInCart;) { @if(tramsInCart.length <= 0) {
+<p>Le panier est vide</p>
+} @else {
+<div class="flex flex-col gap-8">
+  @for (tram of tramsInCart; track tram) {
+  <app-tram-card [tram]="tram.model">
+    <p main class="text-xl font-bold">{{tram.count}}x</p>
+    <div sub class="flex select-none flex-col gap-4">
+      <div class="flex gap-2">
+        <tui-svg
+          (click)="decrease(tram)"
+          class="cursor-pointer text-white hover:text-red-200"
+          src="tuiIconMinusCircle"></tui-svg>
+        <tui-svg
+          (click)="increase(tram)"
+          class="cursor-pointer text-white hover:text-green-200"
+          src="tuiIconPlusCircle"></tui-svg>
+      </div>
+      <tui-svg
+        (click)="delete(tram)"
+        class="cursor-pointer text-white hover:text-red-400"
+        src="tuiIconTrash"></tui-svg>
+    </div>
+  </app-tram-card>
+  }
+  <p class="mt-10 cursor-pointer" (click)="clearCart()">
+    Vider tout le panier 🔥
+  </p>
+</div>
+} } @else {
+<p>Chargement...</p>
+}
