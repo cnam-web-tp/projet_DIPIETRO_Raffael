@@ -49,7 +49,7 @@ const addDefaultProducts = async () => {
     },
     {
       brand: 'Bombardier',
-      name: 'Eurotram',
+      name: 'Socimi',
       description: 'Tramway used in Strasbourg',
       price: 13000,
       imageName: 'eurotram.webp',

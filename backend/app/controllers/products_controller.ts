@@ -10,19 +10,22 @@ export default class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   async index({ response }: HttpContext) {
-    const products = await this.productsService.getAllProducts()
-    const productNames = products.map((product) => product.name)
-    return response.ok({ productNames: productNames, data: products })
+    try {
+      const products = await this.productsService.getAllProducts()
+      return response.ok(products)
+    } catch (error) {
+      return response.badRequest({ message: error.message })
+    }
   }
 
   async search({ request, response }: HttpContext) {
     try {
-      const searchTerm = request.qs().search as string
-
-      if (searchTerm.length <= 0) {
-        throw new Error('Search term is required')
+      if (!request.qs().search) {
+        const products = await this.productsService.getAllProducts()
+        return response.ok(products)
       }
 
+      const searchTerm = request.qs().search as string
       const result = await this.productsService.searchProducts(searchTerm)
       return response.ok(result)
     } catch (error) {
