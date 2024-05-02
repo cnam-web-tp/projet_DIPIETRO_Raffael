@@ -1,7 +1,10 @@
 export type Tram = {
-  id: number;
+  productId: number;
+  brand: string;
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  imageName: string;
+  createdAt: Date;
+  updatedAt: Date;
 };

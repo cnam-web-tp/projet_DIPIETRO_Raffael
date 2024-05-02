@@ -1,10 +1,11 @@
 <div class="group h-48 w-96 overflow-hidden rounded-xl shadow-lg">
-  <div class="relative">
+  <div class="relative h-full w-full">
     <div
       class="absolute h-full w-full bg-gradient-radial from-transparent to-black/70 p-4 text-white transition-all group-hover:bg-black/65">
       <div class="relative h-full w-full">
         <div class="absolute bottom-0 transition-all group-hover:bottom-3/4">
           <p class="text-2xl font-bold">{{tram.name}}</p>
+          <p>{{tram.brand}}</p>
         </div>
         <div
           class="invisible absolute -bottom-full p-1 transition-all group-hover:visible group-hover:bottom-0">
@@ -16,6 +17,8 @@
         </div>
       </div>
     </div>
-    <img class="max-h-48 w-full max-w-96 object-cover" [src]="tram.imageUrl" />
+    <img
+      class="max-h-48 w-full max-w-96 object-cover"
+      [src]="imageBaseUrl + '/' + tram.imageName" />
   </div>
 </div>

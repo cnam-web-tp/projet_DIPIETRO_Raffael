@@ -27,7 +27,7 @@ export class CartState {
   @Action(AddTramToCart)
   addTramToCart(ctx: StateContext<CartStateModel>, { tram }: { tram: Tram }) {
     const state = ctx.getState();
-    const tramId = tram.id;
+    const tramId = tram.productId;
     console.log('tramId', tram);
     const tramCount = state.trams[tramId]?.count || 0;
     ctx.patchState({
@@ -48,7 +48,7 @@ export class CartState {
   ) {
     const state = ctx.getState();
     const newTrams = { ...state.trams };
-    delete newTrams[tram.id];
+    delete newTrams[tram.productId];
     ctx.patchState({
       trams: newTrams
     });
