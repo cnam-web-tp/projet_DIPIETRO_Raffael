@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { TuiMoneyModule } from '@taiga-ui/addon-commerce';
-import { Tram } from '../../../models/tram.type';
+import { Tramway } from '../../../models/tramway.type';
 import { environment } from '../../../../environments/environment';
 import { AddTramToCart } from '../../../state/cart/cart.actions';
+import { tramwayImageUrl } from '../../../utils/tramway-image-url';
 
 @Component({
   selector: 'app-tram-card',
@@ -19,13 +20,9 @@ import { AddTramToCart } from '../../../state/cart/cart.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TramwayCardComponent {
-  @Input() declare tram: Tram;
+  @Input() declare tram: Tramway;
 
   private readonly store = inject(Store);
 
-  imageBaseUrl = `${environment.API_URL}/images/trams`;
-
-  addToCart(): void {
-    this.store.dispatch(new AddTramToCart(this.tram));
-  }
+  tramwayImageUrl = tramwayImageUrl;
 }

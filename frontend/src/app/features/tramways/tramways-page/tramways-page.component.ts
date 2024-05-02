@@ -7,24 +7,33 @@ import {
 } from '@angular/core';
 import { TramsService } from '../trams.service';
 import { Observable, debounceTime, startWith, switchMap } from 'rxjs';
-import { Tram } from '../../../models/tram.type';
+import { Tramway } from '../../../models/tramway.type';
 import { SearchbarComponent } from '../../../components/searchbar/searchbar.component';
 import { SearchbarService } from '../../../components/searchbar/searchbar.service';
 import { TramwayCardComponent } from '../tramway-card/tramway-card.component';
+import { Store } from '@ngxs/store';
+import { AddTramToCart } from '../../../state/cart/cart.actions';
+import { GlassButtonComponent } from '../../../components/glass-button/glass-button.component';
 
 @Component({
   selector: 'app-tramways-page',
   standalone: true,
-  imports: [CommonModule, TramwayCardComponent, SearchbarComponent],
+  imports: [
+    CommonModule,
+    TramwayCardComponent,
+    SearchbarComponent,
+    GlassButtonComponent
+  ],
   providers: [SearchbarService],
   templateUrl: './tramways-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TramwaysPageComponent implements OnInit {
-  declare trams$: Observable<Tram[]>;
+  declare trams$: Observable<Tramway[]>;
 
   tramsService = inject(TramsService);
   searchbarService = inject(SearchbarService);
+  store = inject(Store);
 
   ngOnInit() {
     this.trams$ = this.searchbarService.getSearch$().pipe(
@@ -32,5 +41,9 @@ export class TramwaysPageComponent implements OnInit {
       debounceTime(300),
       switchMap((search) => this.tramsService.searchTrams(search.text))
     );
+  }
+
+  addToCart(tramway: Tramway): void {
+    this.store.dispatch(new AddTramToCart(tramway));
   }
 }

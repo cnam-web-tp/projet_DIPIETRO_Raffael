@@ -1,11 +1,17 @@
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
-import { Tram } from '../../models/tram.type';
+import { Tramway } from '../../models/tramway.type';
 import { Injectable } from '@angular/core';
-import { AddTramToCart, ClearCart, DeleteTramFromCart } from './cart.actions';
+import {
+  AddTramToCart,
+  ClearCart,
+  DeleteTramFromCart,
+  DecreaseTramCount,
+  IncreaseTramCount
+} from './cart.actions';
 
 export type TramInCart = {
   count: number;
-  model: Tram;
+  model: Tramway;
 };
 
 export type CartStateModel = {
@@ -25,26 +31,75 @@ export class CartState {
   constructor() {}
 
   @Action(AddTramToCart)
-  addTramToCart(ctx: StateContext<CartStateModel>, { tram }: { tram: Tram }) {
+  addTramToCart(
+    ctx: StateContext<CartStateModel>,
+    { tram }: { tram: Tramway }
+  ) {
     const state = ctx.getState();
-    const tramId = tram.productId;
-    console.log('tramId', tram);
-    const tramCount = state.trams[tramId]?.count || 0;
+    const tramCount = state.trams[tram.productId]?.count || 0;
     ctx.patchState({
       trams: {
         ...state.trams,
-        [tramId]: {
-          count: tramCount + 1,
+        [tram.productId]: {
+          count: tramCount >= 1 ? tramCount : 1,
           model: tram
         }
       }
     });
   }
 
+  @Action(IncreaseTramCount)
+  increaseTramCount(
+    ctx: StateContext<CartStateModel>,
+    { tram }: { tram: Tramway }
+  ) {
+    const state = ctx.getState();
+    const tramId = tram.productId;
+
+    if (!state.trams[tramId]) return;
+
+    const tramCount = state.trams[tramId]?.count || 0;
+    ctx.patchState({
+      trams: {
+        ...state.trams,
+        [tramId]: {
+          ...state.trams[tramId],
+          count: tramCount + 1
+        }
+      }
+    });
+  }
+
+  @Action(DecreaseTramCount)
+  decreaseTramCount(
+    ctx: StateContext<CartStateModel>,
+    { tram }: { tram: Tramway }
+  ) {
+    const state = ctx.getState();
+    const tramId = tram.productId;
+
+    if (!state.trams[tramId]) return;
+
+    const tramCount = state.trams[tramId]?.count || 0;
+    if (tramCount > 1) {
+      ctx.patchState({
+        trams: {
+          ...state.trams,
+          [tramId]: {
+            ...state.trams[tramId],
+            count: tramCount - 1
+          }
+        }
+      });
+    } else {
+      this.removeTramFromCart(ctx, { tram });
+    }
+  }
+
   @Action(DeleteTramFromCart)
   removeTramFromCart(
     ctx: StateContext<CartStateModel>,
-    { tram }: { tram: Tram }
+    { tram }: { tram: Tramway }
   ) {
     const state = ctx.getState();
     const newTrams = { ...state.trams };
@@ -66,9 +121,6 @@ export class CartState {
 
   @Selector()
   static getCartTramsCount(state: CartStateModel) {
-    return Object.values(state.trams).reduce(
-      (acc, tram) => acc + tram.count,
-      0
-    );
+    return Object.values(state.trams).length;
   }
 }
