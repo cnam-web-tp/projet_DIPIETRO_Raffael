@@ -40,7 +40,7 @@ Products.init(
     },
   },
   {
-    tableName: 'products',
+    tableName: 'Products',
     sequelize,
   }
 )
