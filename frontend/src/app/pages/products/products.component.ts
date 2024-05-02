@@ -6,7 +6,14 @@ import {
   inject
 } from '@angular/core';
 import { TramsService } from './trams.service';
-import { Observable, combineLatest, map, startWith, switchMap } from 'rxjs';
+import {
+  Observable,
+  combineLatest,
+  debounceTime,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs';
 import { Tram } from '../../models/tram.type';
 import { TramCardComponent } from '../../components/tramCard/tramCard.component';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
@@ -29,6 +36,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.trams$ = this.searchbarService.getSearch$().pipe(
       startWith(),
+      debounceTime(300),
       switchMap((search) => this.tramsService.searchTrams(search.text))
     );
   }
