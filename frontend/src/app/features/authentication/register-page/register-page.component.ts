@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UserFormComponent } from '../../components/user-form/user-form.component';
+import { UserFormComponent } from '../../../components/user-form/user-form.component';
 import { BehaviorSubject } from 'rxjs';
-import { CreateUser } from '../../models/create-user.type';
-import { UserService } from '../../services/user.service';
+import { CreateUser } from '../../../models/create-user.type';
+import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, UserFormComponent],
-  templateUrl: './register.component.html',
+  templateUrl: './register-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent {
-  userService = inject(UserService);
+export class RegisterPageComponent {
+  userService = inject(AuthenticationService);
   router = inject(Router);
 
   isLoading$ = new BehaviorSubject<boolean>(false);

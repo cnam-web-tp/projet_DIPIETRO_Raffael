@@ -5,20 +5,20 @@ import {
   Input,
   inject
 } from '@angular/core';
-import { Tram } from '../../models/tram.type';
 import { Store } from '@ngxs/store';
-import { AddTramToCart } from '../../state/cart/cart.actions';
-import { environment } from '../../../environments/environment';
 import { TuiMoneyModule } from '@taiga-ui/addon-commerce';
+import { Tram } from '../../../models/tram.type';
+import { environment } from '../../../../environments/environment';
+import { AddTramToCart } from '../../../state/cart/cart.actions';
 
 @Component({
   selector: 'app-tram-card',
   standalone: true,
   imports: [CommonModule, TuiMoneyModule],
-  templateUrl: './tramCard.component.html',
+  templateUrl: './tramway-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TramCardComponent {
+export class TramwayCardComponent {
   @Input() declare tram: Tram;
 
   private readonly store = inject(Store);

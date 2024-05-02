@@ -12,10 +12,10 @@ import {
   TuiInputModule,
   TuiInputPasswordModule
 } from '@taiga-ui/kit';
-import { CustomValidators } from '../../components/user-form/customValidators';
-import { UserService } from '../../services/user.service';
+import { CustomValidators } from '../../../components/user-form/customValidators';
+import { AuthenticationService } from '../authentication.service';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from '../../services/authentication.service';
+import { TokenService } from '../token.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
@@ -41,11 +41,11 @@ import { HttpStatusCode } from '@angular/common/http';
       }
     }
   ],
-  templateUrl: './login.component.html'
+  templateUrl: './login-page.component.html'
 })
-export class LoginComponent {
-  userService = inject(UserService);
-  authenticationService = inject(AuthenticationService);
+export class LoginPageComponent {
+  userService = inject(AuthenticationService);
+  authenticationService = inject(TokenService);
   router = inject(Router);
 
   loginForm = new FormGroup({
@@ -81,7 +81,7 @@ export class LoginComponent {
         },
         next: (res) => {
           this.loginForm.reset();
-          this.authenticationService.authenticateUser(res.token, res.login);
+          this.authenticationService.setToken(res.token, res.login);
           this.router.navigate(['/']);
         }
       });
