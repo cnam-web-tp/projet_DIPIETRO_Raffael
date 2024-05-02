@@ -27,11 +27,6 @@ export class UserService {
   }
 
   profile(): Observable<User> {
-    const headers = {
-      Authorization: `Bearer ${this.authenticationService.jwt}`
-    };
-    return this.httpClient.get<User>(`${environment.API_URL}/profile`, {
-      headers
-    });
+    return this.httpClient.get<User>(`${environment.API_URL}/profile`);
   }
 }
