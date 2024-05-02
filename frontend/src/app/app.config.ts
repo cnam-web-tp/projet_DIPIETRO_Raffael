@@ -13,7 +13,8 @@ import { dictionary } from '@zxcvbn-ts/language-common';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { CartState } from './state/cart/cart.state';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,6 @@ export const appConfig: ApplicationConfig = {
       NgxsModule.forRoot([CartState], { developmentMode: true })
     ),
     importProvidersFrom(NgxsReduxDevtoolsPluginModule.forRoot()),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([tokenInterceptor]))
   ]
 };

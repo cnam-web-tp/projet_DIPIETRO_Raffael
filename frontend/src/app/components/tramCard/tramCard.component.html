@@ -1,21 +1,29 @@
 <div class="group h-48 w-96 overflow-hidden rounded-xl shadow-lg">
-  <div class="relative">
+  <div class="relative h-full w-full">
     <div
       class="absolute h-full w-full bg-gradient-radial from-transparent to-black/70 p-4 text-white transition-all group-hover:bg-black/65">
       <div class="relative h-full w-full">
         <div class="absolute bottom-0 transition-all group-hover:bottom-3/4">
           <p class="text-2xl font-bold">{{tram.name}}</p>
+          <p>{{tram.brand}}</p>
         </div>
         <div
-          class="invisible absolute -bottom-full p-1 transition-all group-hover:visible group-hover:bottom-0">
-          <button
-            (click)="addToCart()"
-            class="size-20 rounded-lg bg-white/20 p-1 font-semibold shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
-            Ajouter au panier
-          </button>
+          class="invisible absolute -bottom-full w-full p-1 transition-all group-hover:visible group-hover:bottom-0">
+          <div class="flex w-full items-center justify-between">
+            <button
+              (click)="addToCart()"
+              class="size-20 rounded-lg bg-white/20 p-1 font-semibold shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
+              Ajouter au panier
+            </button>
+            <p class="text-base font-semibold">
+              <tui-money currency="EUR" [value]="tram.price"></tui-money>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <img class="max-h-48 w-full max-w-96 object-cover" [src]="tram.imageUrl" />
+    <img
+      class="max-h-48 w-full max-w-96 object-cover"
+      [src]="imageBaseUrl + '/' + tram.imageName" />
   </div>
 </div>

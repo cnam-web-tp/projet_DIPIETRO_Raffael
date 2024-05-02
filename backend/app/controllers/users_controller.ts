@@ -1,6 +1,6 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
-import { User } from '#database/models/users'
+import { Users } from '#database/models/users'
 import { JwtService } from '#services/jwt_service'
 import { loginUserValidator, registerUserValidator } from '#validators/user'
 import { inject } from '@adonisjs/core'
@@ -15,7 +15,7 @@ export default class UsersController {
     const data = await request.validateUsing(loginUserValidator)
 
     // check username and password in database
-    const usr = await User.findOne({ where: { login: data.login } })
+    const usr = await Users.findOne({ where: { login: data.login } })
 
     const errorMessage = 'Invalid username or password'
     if (!usr) {
@@ -43,7 +43,7 @@ export default class UsersController {
 
     try {
       const hashedPassword = await this.hashData(data.password)
-      await User.create({ ...data, password: hashedPassword })
+      await Users.create({ ...data, password: hashedPassword })
       return response.created(data)
     } catch (error) {
       return response.badRequest({ message: error.message })
@@ -60,7 +60,7 @@ export default class UsersController {
 
   async profile({ request, response }: HttpContext) {
     const userId = (request.jwt?.payload as any).id
-    const user = await User.findOne({ where: { userId } })
+    const user = await Users.findOne({ where: { userId } })
     if (!user) {
       return response.unauthorized()
     }

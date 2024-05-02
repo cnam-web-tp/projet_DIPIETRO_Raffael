@@ -6,7 +6,14 @@ import {
   inject
 } from '@angular/core';
 import { TramsService } from './trams.service';
-import { Observable, combineLatest, map } from 'rxjs';
+import {
+  Observable,
+  combineLatest,
+  debounceTime,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs';
 import { Tram } from '../../models/tram.type';
 import { TramCardComponent } from '../../components/tramCard/tramCard.component';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
@@ -27,15 +34,10 @@ export class ProductsComponent implements OnInit {
   searchbarService = inject(SearchbarService);
 
   ngOnInit() {
-    this.trams$ = combineLatest([
-      this.tramsService.getTrams(),
-      this.searchbarService.getSearch$()
-    ]).pipe(
-      map(([trams, search]) =>
-        trams.filter((tram) =>
-          this.tramsService.isTramMatchingSearch(tram, search)
-        )
-      )
+    this.trams$ = this.searchbarService.getSearch$().pipe(
+      startWith(),
+      debounceTime(300),
+      switchMap((search) => this.tramsService.searchTrams(search.text))
     );
   }
 }
