@@ -17,6 +17,8 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -51,6 +53,8 @@ export class LoginComponent {
     password: new FormControl('', [CustomValidators.required])
   });
 
+  errorMessage$ = new BehaviorSubject<string | null>(null);
+
   login() {
     if (!this.loginForm.valid) {
       return;
@@ -60,16 +64,26 @@ export class LoginComponent {
       return;
     }
 
+    this.errorMessage$.next(null);
+
     this.userService
       .loginUser({
         login: this.loginForm.value.login,
         password: this.loginForm.value.password
       })
-      .subscribe((res) => {
-        console.log('User logged in', res);
-        this.loginForm.reset();
-        this.authenticationService.authenticateUser(res.token, res.login);
-        this.router.navigate(['/']);
+      .subscribe({
+        error: (err) => {
+          if (err.status === HttpStatusCode.BadRequest) {
+            this.errorMessage$.next('Identifiants incorrects');
+          } else {
+            this.errorMessage$.next('Une erreur est survenue');
+          }
+        },
+        next: (res) => {
+          this.loginForm.reset();
+          this.authenticationService.authenticateUser(res.token, res.login);
+          this.router.navigate(['/']);
+        }
       });
   }
 }

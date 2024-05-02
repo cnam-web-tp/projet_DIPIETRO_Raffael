@@ -13,4 +13,7 @@
     formControlName="password"
     [error]="[] | tuiFieldError | async"></tui-error>
 </form>
+@if ((errorMessage$ | async); as errorMessage) {
+<p class="text-red-500">{{errorMessage}}</p>
+}
 <button tuiButton (click)="login()">Connexion</button>
