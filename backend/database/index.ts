@@ -48,8 +48,8 @@ const addDefaultProducts = async () => {
       imageName: 'cobra.webp',
     },
     {
-      brand: 'Bombardier',
-      name: 'Socimi',
+      brand: 'Socimi',
+      name: 'Eurotram',
       description: 'Tramway used in Strasbourg',
       price: 13000,
       imageName: 'eurotram.webp',
