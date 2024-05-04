@@ -38,16 +38,17 @@ export class CartPageComponent implements OnInit {
   cart$: Observable<TramInCart[]> = this.store.select((state) => state.cart);
 
   ngOnInit(): void {
-    this.store.dispatch(
-      new AddTramToCart({
-        productId: 1,
-        brand: 'Tramway 1',
-        name: 'Tramway 1',
-        description: 'Tramway 1 description',
-        price: 1000,
-        imageName: 'citadis.webp'
-      })
-    );
+    // TODO : remove this in the future. Here for testing purposes.
+    // this.store.dispatch(
+    //   new AddTramToCart({
+    //     productId: 1,
+    //     brand: 'Tramway 1',
+    //     name: 'Tramway 1',
+    //     description: 'Tramway 1 description',
+    //     price: 1000,
+    //     imageName: 'citadis.webp'
+    //   })
+    // );
   }
 
   @Select(CartState.getCartTrams) declare tramsInCart$: Observable<
