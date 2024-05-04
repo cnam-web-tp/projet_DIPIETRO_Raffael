@@ -1,0 +1,23 @@
+<div
+  class="flex w-full flex-col gap-4 divide-y rounded-xl bg-blue-50 p-4 shadow-lg">
+  <p class="text-2xl font-bold">Résumé de la commande</p>
+  <div class="flex justify-between">
+    <p class="text-base">Sous total</p>
+    <tui-money [value]="total" currency="EUR"></tui-money>
+  </div>
+  <div class="flex justify-between">
+    <p class="text-base">Frais de port</p>
+    <tui-money [value]="shipping" currency="EUR"></tui-money>
+  </div>
+  <div class="flex justify-between">
+    <p class="text-base">Taxes ({{taxes*100}}% TVA)</p>
+    <tui-money [value]="total * taxes" currency="EUR"></tui-money>
+  </div>
+  <div class="flex justify-between">
+    <p class="text-base">Total</p>
+    <tui-money
+      [value]="total + shipping + total*taxes"
+      currency="EUR"></tui-money>
+  </div>
+  <button tuiButton>Passer la commande</button>
+</div>

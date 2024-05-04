@@ -5,6 +5,6 @@ export type Tramway = {
   description: string;
   price: number;
   imageName: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

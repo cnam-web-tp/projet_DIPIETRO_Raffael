@@ -123,4 +123,12 @@ export class CartState {
   static getCartTramsCount(state: CartStateModel) {
     return Object.values(state.trams).length;
   }
+
+  @Selector()
+  static getCartTotal(state: CartStateModel) {
+    return Object.values(state.trams).reduce(
+      (acc, tram) => acc + tram.model.price * tram.count,
+      0
+    );
+  }
 }
