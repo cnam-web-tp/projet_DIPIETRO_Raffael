@@ -50,7 +50,7 @@ const addDefaultProducts = async () => {
     {
       brand: 'Socimi',
       name: 'Eurotram',
-      description: 'Tramway used in Strasbourg',
+      description: 'Tramway used in Strasbourg city',
       price: 13000,
       imageName: 'eurotram.webp',
     },
