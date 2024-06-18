@@ -14,4 +14,8 @@ export class CartSummaryComponent {
   @Input() declare total: number;
   @Input() taxes = 0.2;
   @Input() shipping = 10;
+
+  passTheCommand() {
+    window.open('https://www.youtube.com/watch?v=JobTfCE2eS8', '_blank');
+  }
 }
