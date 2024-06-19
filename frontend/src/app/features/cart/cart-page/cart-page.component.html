@@ -1,7 +1,18 @@
 <!-- Prettier not pretty configurated to this syntaxe maybe.. Sorry for lisibility -->
 <div class="flex justify-center">
   @if(tramsInCart$ | async; as tramsInCart;) { @if(tramsInCart.length <= 0) {
-  <p>Le panier est vide</p>
+  <div class="flex flex-col items-center p-10">
+    <p class="text-xl">Le panier est vide 🥺</p>
+    <button
+      tuiButton
+      class="mt-4"
+      icon="tuiIconArrowLeft"
+      iconDirection="left"
+      variant="primary"
+      [routerLink]="['/']">
+      Retourner à la liste des trams
+    </button>
+  </div>
   } @else {
   <div class="flex gap-32">
     <div class="flex flex-col gap-8">

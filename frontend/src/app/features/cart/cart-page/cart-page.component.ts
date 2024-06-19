@@ -19,6 +19,7 @@ import { TramwayCartCardComponent } from '../../tramways/tramway-cart-card/tramw
 import { TramwayCardComponent } from '../../tramways/tramway-card/tramway-card.component';
 import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
 import { CartSummaryComponent } from '../cart-summary/cart-summary.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +29,8 @@ import { CartSummaryComponent } from '../cart-summary/cart-summary.component';
     TramwayCardComponent,
     TuiButtonModule,
     TuiSvgModule,
-    CartSummaryComponent
+    CartSummaryComponent,
+    RouterLink
   ],
   templateUrl: './cart-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
